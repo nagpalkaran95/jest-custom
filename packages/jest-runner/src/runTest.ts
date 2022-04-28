@@ -28,6 +28,7 @@ import Resolver, {resolveTestEnvironment} from 'jest-resolve';
 import type RuntimeClass from 'jest-runtime';
 import {ErrorWithStack, interopRequireDefault, setGlobal} from 'jest-util';
 import type {TestFramework, TestRunnerContext} from './types';
+import util = require('util');
 
 type RunTestInternalResult = {
   leakDetector: LeakDetector | null;
@@ -102,6 +103,8 @@ async function runTestInternal(
       testEnvironment: customEnvironment,
     });
   }
+
+  console.log(util.inspect(testEnvironment));
 
   const cacheFS = new Map([[path, testSource]]);
   const transformer = await createScriptTransformer(projectConfig, cacheFS);
